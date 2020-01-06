@@ -13,6 +13,18 @@ const db = require('./models')
 const Record = db.Record
 const User = db.User
 
+app.use(session({
+  secret: 'your secret key',
+  resave: 'false',
+  saveUninitialized: 'false',
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+require('./config/passport')(passport)
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  next()
+})
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
