@@ -30,10 +30,9 @@ app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
+app.use('/', require('./routes/home'))
 app.use('/users', require('./routes/user'))
-app.get('/', (req, res) => {
-  res.send('success!')
-})
+app.use('/records', require('./routes/record'))
 
 
 app.listen(port, () => {
